@@ -52,5 +52,11 @@ group :development, :test do
 
   #CSS assignment - add the Twitter Bootstrap
   gem 'bootstrap-sass'
+
+  # Pry, an alternative to IRB
+  gem 'pry-rails'
+
+  # Seed Data
+  gem 'faker'
 end
 
