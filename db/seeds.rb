@@ -24,6 +24,16 @@
      body: Faker::Lorem.paragraph
    )
  end
+
+ # Seed Data assignment
+Post.find_or_create_by(title: 'Seed Data Title')
+unique_seed = Post.find_by(title: 'Seed Data Title')
+unique_seed.update(body: 'Seed Data Body')
+
+Comment.find_or_create_by(body: 'Seed Data Comment')
+unique_comment = Comment.find_by(body: 'Seed Data Comment')
+unique_comment.update(post_id: 1)
+
  
  puts "Seed finished"
  puts "#{Post.count} posts created"
