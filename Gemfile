@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
+#CSS assignment - add the Twitter Bootstrap
+gem 'bootstrap-sass'
+
 # Use sqlite3 as the database for Active Record
 group :production do
    gem 'pg'
@@ -50,13 +53,14 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  #CSS assignment - add the Twitter Bootstrap
-  gem 'bootstrap-sass'
-
   # Pry, an alternative to IRB
   gem 'pry-rails'
 
   # Seed Data
   gem 'faker'
-end
+
+  # Other helpful gems
+  gem 'annotate'
+  gem 'quiet_assets'
+end  
 

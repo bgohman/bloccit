@@ -6,33 +6,32 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Post.destroy_all
+Comment.destroy_all 
+
  require 'faker'
  
  # Create Posts
  50.times do
-   Post.create!(
+   Post.where(
      title:  Faker::Lorem.sentence,
      body:   Faker::Lorem.paragraph
-   )
+   ).first_or_create
  end
  posts = Post.all
  
  # Create Comments
  100.times do
-   Comment.create!(
+   Comment.where(
      post: posts.sample,
      body: Faker::Lorem.paragraph
-   )
+   ).first_or_create
  end
 
  # Seed Data assignment
-Post.find_or_create_by(title: 'Seed Data Title')
-unique_seed = Post.find_by(title: 'Seed Data Title')
-unique_seed.update(body: 'Seed Data Body')
+Post.find_by(title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
 
-Comment.find_or_create_by(body: 'Seed Data Comment')
-unique_comment = Comment.find_by(body: 'Seed Data Comment')
-unique_comment.update(post_id: 1)
+Comment.by(body: 'Seed Data Comment', post_id: 1).first_or_create
 
  
  puts "Seed finished"
