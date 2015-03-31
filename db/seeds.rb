@@ -13,25 +13,25 @@ Comment.destroy_all
  
  # Create Posts
  50.times do
-   Post.where(
+   Post.create!(
      title:  Faker::Lorem.sentence,
      body:   Faker::Lorem.paragraph
-   ).first_or_create
+   )
  end
  posts = Post.all
  
  # Create Comments
  100.times do
-   Comment.where(
+   Comment.create!(
      post: posts.sample,
      body: Faker::Lorem.paragraph
-   ).first_or_create
+   )
  end
 
  # Seed Data assignment
-Post.find_by(title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
+Post.where(title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
 
-Comment.by(body: 'Seed Data Comment', post_id: 1).first_or_create
+Comment.where(body: 'Seed Data Comment', post_id: 1).first_or_create
 
  
  puts "Seed finished"
