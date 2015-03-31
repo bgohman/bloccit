@@ -7,7 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Post.destroy_all
-Comment.destroy_all 
+Comment.destroy_all
+Advertisement.destroy_all 
 
  require 'faker'
  
@@ -28,6 +29,15 @@ Comment.destroy_all
    )
  end
 
+  # Create Ads
+ 10.times do
+   Advertisement.create!(
+     title: Faker::Lorem.sentence,
+     copy: Faker::Lorem.paragraph,
+     price: rand(100)
+   )
+ end
+
  # Seed Data assignment
 Post.where(title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
 
@@ -37,3 +47,4 @@ Comment.where(body: 'Seed Data Comment', post_id: 1).first_or_create
  puts "Seed finished"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
+ puts "#{Advertisement.count} advertisements created"
