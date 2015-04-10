@@ -8,7 +8,8 @@
 
 Post.destroy_all
 Comment.destroy_all
-Advertisement.destroy_all 
+Advertisement.destroy_all
+Question.destroy_all 
 
  require 'faker'
  
@@ -38,6 +39,15 @@ Advertisement.destroy_all
    )
  end
 
+# Create Questions
+ 10.times do
+   Question.create!(
+     title: Faker::Lorem.sentence,
+     body: Faker::Lorem.paragraph,
+     resolved: false
+   )
+ end
+
  # Seed Data assignment
 Post.where(title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
 
@@ -48,3 +58,4 @@ Comment.where(body: 'Seed Data Comment', post_id: 1).first_or_create
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
  puts "#{Advertisement.count} advertisements created"
+ puts "#{Question.count} questions created"
