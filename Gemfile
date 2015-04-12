@@ -56,11 +56,14 @@ group :development, :test do
   # Pry, an alternative to IRB
   gem 'pry-rails'
 
-  # Seed Data
-  gem 'faker'
-
   # Other helpful gems
   gem 'annotate'
   gem 'quiet_assets'
+
 end  
 
+  # Seed Data
+  gem 'faker'
+
+  # User Authentication
+  gem 'devise'
