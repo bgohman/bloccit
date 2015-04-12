@@ -1,0 +1,5 @@
+<p><%= @comment.body %></p>
+
+<%= link_to "Edit", edit_comment_path(@question), class: 'btn btn-success' %>
+<br><br>
+<%= link_to "Delete", @comment, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>

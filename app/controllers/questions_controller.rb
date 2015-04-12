@@ -9,10 +9,12 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(params.require(:question).permit(:title, :body, :resolved))
+    @post = Post.find(params[:post_id])
+    @question = @post.questions.new(params.require(:question).permit(:title, :body, :resolved))
+
     if @question.save
       flash[:notice] = "Question was saved."
-      redirect_to @question
+      redirect_to @post
     else
       flash[:error] = "There was an error saving the question.  Please try again."
       render :new
@@ -20,18 +22,21 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:post_id])    
     @question = Question.find(params[:id])
   end
 
   def edit
+    @post = Post.find(params[:post_id])    
     @question = Question.find(params[:id])
   end
 
   def update
+    @post = Post.find(params[:post_id]) 
     @question = Question.find(params[:id])
     if @question.update_attributes(params.require(:question).permit(:title, :body, :resolved))
       flash[:notice] = "Question was updated."
-      redirect_to @question
+      redirect_to @post
     else
       flash[:error] = "There was an error saving the question.  Please try again."
       render :edit
@@ -39,14 +44,14 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:post_id])     
     @question = Question.find(params[:id])
-    @question.destroy
     if @question.destroy
       flash[:notice] = "Question was deleted."
-      redirect_to questions_path
+      redirect_to @post
     else
       flash[:error] = "There was an error deleting the question.  Please try again."
-      redirect_to @question
+      redirect_to @post
     end  
   end
 

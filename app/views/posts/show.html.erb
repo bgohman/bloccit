@@ -1,6 +1,37 @@
 <h1><%= @post.title %></h1>
 
-  <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-success' %>
-  <%= link_to "New Question", new_post_question_path(@post), class: 'btn btn-success' %>  
-
 <p><%= @post.body %></p>
+
+<%= link_to "Edit Post", edit_post_path(@post), class: 'btn btn-success' %>
+<%= link_to "Ask a Question", new_post_question_path(@post), class: 'btn btn-success' %>
+<%= link_to "Make a Comment", new_post_comment_path(@post), class: 'btn btn-success' %>
+<%= link_to "Delete This Post", @post, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
+
+<% @post.questions.each do |question| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <h4><%= question.title %></h4>
+        <p><%= question.body %></p>
+        <% if question.resolved? %>
+          <p><i>This question has been answered.</i></p>
+        <% end %>
+      </h4>
+        <%= link_to "Edit Question", edit_post_question_path(@post, question), class: 'btn btn-success' %>
+        <%= link_to "Delete Question", [@post, question], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>  
+    </div>
+  </div>
+  
+<% end%>
+
+<% @post.comments.each do |comment| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading"></h4>
+        <p><%= comment.body %></p>
+        <%= link_to "Edit Comment", edit_post_comment_path(@post, comment), class: 'btn btn-success' %>
+        <%= link_to "Delete Comment", [@post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>  
+    </div>
+  </div>
+  
+<% end%>
