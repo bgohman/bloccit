@@ -67,3 +67,6 @@ end
 
   # User Authentication
   gem 'devise'
+
+  # using environment variables for sensitive data
+  gem 'figaro', '1.0'
