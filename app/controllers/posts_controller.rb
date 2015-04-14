@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   def index
     @posts = Post.all
   end
@@ -47,5 +48,5 @@ class PostsController < ApplicationController
       redirect_to @post
     end
   end
-  
+   skip_before_action :flash_attack, only: [:new, :index]
 end
