@@ -9,13 +9,27 @@
 Post.destroy_all
 Comment.destroy_all
 Advertisement.destroy_all
-Question.destroy_all 
+Question.destroy_all
+User.destroy_all 
 
  require 'faker'
+
+# Create Users
+5.times do
+  user = User.new(
+    name:     Faker::Name.name,
+    email:    Faker::Internet.email,
+    password: Faker::Lorem.characters(10)
+  )
+  user.skip_confirmation!
+  user.save!
+end
+users = User.all
  
  # Create Posts
  50.times do
    Post.create!(
+     user:   users.sample,
      title:  Faker::Lorem.sentence,
      body:   Faker::Lorem.paragraph
    )
@@ -25,6 +39,7 @@ Question.destroy_all
  # Create Comments
  100.times do
    Comment.create!(
+     # user: suers.sample,
      post: posts.sample,
      body: Faker::Lorem.paragraph
    )
@@ -49,12 +64,20 @@ Question.destroy_all
  end
 
  # Seed Data assignment
-Post.where(title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
+Post.where(user: users.sample, title: 'Seed Data Title', body: 'Seed Data Body').first_or_create
 
 Comment.where(body: 'Seed Data Comment', post_id: 1).first_or_create
 
+user = User.first
+user.skip_reconfirmation!
+user.update_attributes!(
+  email: 'bradley.s.gohman@gmail.com',
+  password: 'bloccitpassword'
+)
+
  
  puts "Seed finished"
+ puts "#{User.count} users created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
  puts "#{Advertisement.count} advertisements created"
