@@ -70,3 +70,6 @@ end
 
   # using environment variables for sensitive data
   gem 'figaro', '1.0'
+
+  #authorize different users for different tasks
+  gem 'pundit'

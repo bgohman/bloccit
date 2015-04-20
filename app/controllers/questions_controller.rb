@@ -1,16 +1,19 @@
 class QuestionsController < ApplicationController
   def index
     @questions = Question.all
+      authorize @questions
   end
 
   def new
     @post = Post.find(params[:post_id])
     @question = Question.new
+      authorize @question
   end
 
   def create
     @post = Post.find(params[:post_id])
     @question = @post.questions.new(params.require(:question).permit(:title, :body, :resolved))
+      authorize @question
 
     if @question.save
       flash[:notice] = "Question was saved."
@@ -29,11 +32,13 @@ class QuestionsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])    
     @question = Question.find(params[:id])
+      authorize @question
   end
 
   def update
     @post = Post.find(params[:post_id]) 
     @question = Question.find(params[:id])
+      authorize @question
     if @question.update_attributes(params.require(:question).permit(:title, :body, :resolved))
       flash[:notice] = "Question was updated."
       redirect_to @post
@@ -46,6 +51,7 @@ class QuestionsController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])     
     @question = Question.find(params[:id])
+      authorize @question
     if @question.destroy
       flash[:notice] = "Question was deleted."
       redirect_to @post

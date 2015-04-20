@@ -6,11 +6,13 @@ class CommentsController < ApplicationController
   def new
     @post = Post.find(params[:post_id])
     @comment = Comment.new
+      authorize @comment
   end
 
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(params.require(:comment).permit(:title, :body, :resolved))
+      authorize @comment
 
     if @comment.save
       flash[:notice] = "comment was saved."
@@ -29,11 +31,13 @@ class CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])    
     @comment = Comment.find(params[:id])
+      authorize @comment
   end
 
   def update
     @post = Post.find(params[:post_id]) 
     @comment = Comment.find(params[:id])
+      authorize @comment
     if @comment.update_attributes(params.require(:comment).permit(:body))
       flash[:notice] = "comment was updated."
       redirect_to @post
@@ -46,6 +50,7 @@ class CommentsController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])     
     @comment = Comment.find(params[:id])
+      authorize @comment
     @comment.destroy
     if @comment.destroy
       flash[:notice] = "comment was deleted."
