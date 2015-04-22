@@ -11,8 +11,8 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @user = current_user
-    @comment = @post.comments.new(params.require(:comment).permit(:title, :body, :user_id, :resolved))
+    @comment = @post.comments.new(params.require(:comment).permit(:title, :body, :resolved))
+    @comment.user = current_user
       authorize @comment
 
     if @comment.save
