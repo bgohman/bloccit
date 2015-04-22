@@ -24,13 +24,10 @@
           <p><i>This question has been answered.</i></p>
         <% end %>
       </h4>
-        <% # questions need users
-           #if policy(question).edit?
-           %>
+        <% if policy(question).edit?%>
           <%= link_to "Edit Question", edit_post_question_path(@post, question), class: 'btn btn-success' %>
           <%= link_to "Delete Question", [@post, question], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
-        <% #end 
-        %> 
+        <% end %> 
     </div>
   </div>
   
@@ -41,13 +38,10 @@
     <div class="media-body">
       <h4 class="media-heading"></h4>
         <p><%= comment.body %></p>
-        <% # comments need users
-          #if policy(comment).edit? 
-          %>
+        <% if policy(comment).edit? %>
         <%= link_to "Edit Comment", edit_post_comment_path(@post, comment), class: 'btn btn-success' %>
         <%= link_to "Delete Comment", [@post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
-        <% #end 
-        %> 
+        <% end %> 
     </div>
   </div>
   

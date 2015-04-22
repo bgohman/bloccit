@@ -39,7 +39,7 @@ users = User.all
  # Create Comments
  100.times do
    Comment.create!(
-     # user: suers.sample,
+     user: users.sample,
      post: posts.sample,
      body: Faker::Lorem.paragraph
    )
@@ -57,6 +57,7 @@ users = User.all
 # Create Questions
  10.times do
    Question.create!(
+     user: users.sample,
      title: Faker::Lorem.sentence,
      body: Faker::Lorem.paragraph,
      resolved: false

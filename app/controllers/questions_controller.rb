@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @question = @post.questions.new(params.require(:question).permit(:title, :body, :resolved))
+    @question = @post.questions.new(params.require(:question).permit(:title, :body, :user_id, :resolved))
       authorize @question
 
     if @question.save
