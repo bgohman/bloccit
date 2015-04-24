@@ -10,7 +10,8 @@ Post.destroy_all
 Comment.destroy_all
 Advertisement.destroy_all
 Question.destroy_all
-User.destroy_all 
+User.destroy_all
+Topic.destroy_all 
 
  require 'faker'
 
@@ -25,11 +26,21 @@ User.destroy_all
   user.save!
 end
 users = User.all
+
+ # Create Topics
+ 15.times do
+  Topic.create!(
+    name:        Faker::Lorem.sentence,
+    description: Faker::Lorem.paragraph
+  )
+ end
+ topics = Topic.all
  
  # Create Posts
  50.times do
    Post.create!(
      user:   users.sample,
+     topic:  topics.sample,
      title:  Faker::Lorem.sentence,
      body:   Faker::Lorem.paragraph
    )
@@ -69,15 +80,39 @@ Post.where(user: users.sample, title: 'Seed Data Title', body: 'Seed Data Body')
 
 Comment.where(body: 'Seed Data Comment', post_id: 1).first_or_create
 
-user = User.first
-user.skip_reconfirmation!
-user.update_attributes!(
-  email: 'bradley.s.gohman@gmail.com',
-  password: 'bloccitpassword'
+# Create an admin
+admin = User.new(
+  name:     'Admin User',
+  email:    'admin@example.com',
+  password: 'helloworld',
+  role:     'admin'
 )
+admin.skip_confirmation!
+admin.save!
+
+# Create a moderator
+moderator = User.new(
+  name:     'Moderator User',
+  email:    'moderator@example.com',
+  password: 'helloworld',
+  role:     'moderator'
+)
+moderator.skip_confirmation!
+moderator.save!
+
+# Create a member
+member = User.new(
+  name:     'Member User',
+  email:    'member@example.com',
+  password: 'helloworld',
+  role:     'member'
+)
+member.skip_confirmation!
+member.save!
 
  
  puts "Seed finished"
+ puts "#{Topic.count} topics created"
  puts "#{User.count} users created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"

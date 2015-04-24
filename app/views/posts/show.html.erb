@@ -2,15 +2,15 @@
 
 <p><%= @post.body %></p>
 
+<% if policy(@post).edit? %>
+  <%= link_to "Edit Post", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
+  <%= link_to "Delete This Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
+<% end %>
 <% if policy(Question.new).create? %>  
-  <%= link_to "Ask a Question", new_post_question_path(@post), class: 'btn btn-success' %>
+  <%= link_to "Ask a Question", new_topic_post_question_path(@topic, @post), class: 'btn btn-success' %>
 <% end %>
 <% if policy(Comment.new).create? %>
-  <%= link_to "Make a Comment", new_post_comment_path(@post), class: 'btn btn-success' %>
-<% end %>
-<% if policy(@post).edit? %>
-  <%= link_to "Edit Post", edit_post_path(@post), class: 'btn btn-success' %>
-  <%= link_to "Delete This Post", @post, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
+  <%= link_to "Make a Comment", new_topic_post_comment_path(@topic, @post), class: 'btn btn-success' %>
 <% end %>
 
 
@@ -25,8 +25,8 @@
         <% end %>
       </h4>
         <% if policy(question).edit?%>
-          <%= link_to "Edit Question", edit_post_question_path(@post, question), class: 'btn btn-success' %>
-          <%= link_to "Delete Question", [@post, question], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
+          <%= link_to "Edit Question", edit_topic_post_question_path(@topic, @post, question), class: 'btn btn-success' %>
+          <%= link_to "Delete Question", [@topic, @post, question], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
         <% end %> 
     </div>
   </div>
@@ -39,8 +39,8 @@
       <h4 class="media-heading"></h4>
         <p><%= comment.body %></p>
         <% if policy(comment).edit? %>
-        <%= link_to "Edit Comment", edit_post_comment_path(@post, comment), class: 'btn btn-success' %>
-        <%= link_to "Delete Comment", [@post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
+        <%= link_to "Edit Comment", edit_topic_post_comment_path(@topic, @post, comment), class: 'btn btn-success' %>
+        <%= link_to "Delete Comment", [@topic, @post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
         <% end %> 
     </div>
   </div>

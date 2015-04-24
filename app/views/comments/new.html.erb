@@ -10,7 +10,7 @@
     </ul>
   </div>
   <div class="col-md-8">
-    <%= form_for [@post, @user, @comment] do |f| %>
+    <%= form_for [@topic, @post, @user, @comment] do |f| %>
       <div class="form-group">
         <%= f.label "Make a comment" %>
         <%= f.text_field :body, rows: 8, class: 'form-control', placeholder: "type your comment" %>
