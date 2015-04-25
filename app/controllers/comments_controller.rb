@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
       authorize @comment
     if @comment.update_attributes(params.require(:comment).permit(:body))
       flash[:notice] = "comment was updated."
-      redirect_to @topic
+      redirect_to [@topic, @post]
     else
       flash[:error] = "There was an error saving the comment.  Please try again."
       render :edit
@@ -57,10 +57,10 @@ class CommentsController < ApplicationController
     @comment.destroy
     if @comment.destroy
       flash[:notice] = "comment was deleted."
-      redirect_to @topic
+      redirect_to [@topic, @post]
     else
       flash[:error] = "There was an error deleting the comment.  Please try again."
-      redirect_to @topic
+      redirect_to [@topic, @post]
     end  
   end
 

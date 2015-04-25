@@ -1,0 +1,5 @@
+<p><%= @summary.body %></p>
+
+<%= link_to "Edit", edit_topic_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
+<br><br>
+<%= link_to "Delete", @summary, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>

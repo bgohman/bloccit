@@ -1,0 +1,4 @@
+class SummaryPolicy < ApplicationPolicy  
+
+
+end
