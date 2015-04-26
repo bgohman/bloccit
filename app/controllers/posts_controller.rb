@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id])
-    @post = @topic.posts.new(params.require(:post).permit(:title, :body))
+    @post = @topic.posts.new(post_params)
     @post.user = current_user
       authorize @post
     if @post.save
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
       authorize @post
-    if @post.update_attributes(params.require(:post).permit(:title, :body))
+    if @post.update_attributes(post_params)
       flash[:notice] = "Post was updated."
       redirect_to [@topic, @post]
     else
@@ -56,6 +56,12 @@ class PostsController < ApplicationController
       flash[:error] = "There was an error deleting the question.  Please try again."
       redirect_to [@topic, @post]
     end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
   
 end
