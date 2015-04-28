@@ -16,7 +16,7 @@
     <% end %>
     <%= form_group_tag(post.errors[:body]) do %>
         <%= f.label :body %>
-        <%= f.text_field :body, rows: 8, class: 'form-control', placeholder: "Enter post body" %>
+        <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter post body" %>
     <% end %>
     <div class="form-group">
       <%= f.submit "Save", class: 'btn btn-success' %>

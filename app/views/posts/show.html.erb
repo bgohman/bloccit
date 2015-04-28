@@ -1,6 +1,10 @@
-<h1><%= @post.title %></h1>
+<h1><%= markdown_to_html @post.title %></h1>
 
-<p><%= @post.body %></p>
+<div class= "row">
+  <div class= "col-md-8">
+    <p><%= markdown_to_html @post.body %></p>
+  </div>
+</div>
 
 <% if policy(@post).edit? && !@post.summary %>
   <%= link_to "Summarize Post", new_topic_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>

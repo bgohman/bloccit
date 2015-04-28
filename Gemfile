@@ -73,3 +73,6 @@ end
 
   #authorize different users for different tasks
   gem 'pundit'
+
+  #markdown
+  gem 'redcarpet'
