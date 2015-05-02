@@ -76,3 +76,10 @@ end
 
   #markdown
   gem 'redcarpet'
+
+  #images and avatars
+  gem 'carrierwave'
+  gem 'mini_magick'
+
+  #cloud services library
+  gem 'fog'
