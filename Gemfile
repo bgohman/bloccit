@@ -83,3 +83,6 @@ end
 
   #cloud services library
   gem 'fog'
+
+  #pagination
+  gem  'will_paginate', '~> 3.0.5'

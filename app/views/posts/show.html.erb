@@ -21,6 +21,8 @@
   <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
 <% end %>
 
+<%= link_to "Back to the topic page", topic_path(@topic) %>
+
   <div class="media">
     <div class="media-body">
       <h4 class="media-heading"></h4>
