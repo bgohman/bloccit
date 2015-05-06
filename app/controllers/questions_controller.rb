@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])
     @question = @post.questions.new(params.require(:question).permit(:title, :body, :user_id, :resolved))
+    @question.user = current_user
       authorize @question
 
     if @question.save

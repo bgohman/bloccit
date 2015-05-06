@@ -4,19 +4,22 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @summary = @post.summary
     authorize @post
+    @questions = @post.questions
+    @comments = @post.comments
+    @comments_and_questions = (@questions + @comments).sort_by &:created_at
   end
 
   def new
     @post = Post.new
     @topic = Topic.find(params[:topic_id])
-      authorize @post
+    authorize @post
   end
 
   def create
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.new(post_params)
     @post.user = current_user
-      authorize @post
+    authorize @post
     if @post.save
       flash[:notice] = "Post was saved."
       redirect_to [@topic, @post]
@@ -29,13 +32,13 @@ class PostsController < ApplicationController
   def edit
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
-      authorize @post
+    authorize @post
   end
 
   def update
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
-      authorize @post
+    authorize @post
     if @post.update_attributes(post_params)
       flash[:notice] = "Post was updated."
       redirect_to [@topic, @post]
@@ -48,7 +51,7 @@ class PostsController < ApplicationController
   def destroy
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
-      authorize @post
+    authorize @post
     if @post.destroy
       flash[:notice] = "Post was deleted."
       redirect_to topics_path

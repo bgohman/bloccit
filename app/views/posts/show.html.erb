@@ -24,27 +24,11 @@
           <% end %> 
         <% end %> 
     </div>
-  </div> 
+  </div>
 
-  <%= render partial: 'comments/comment', collection: @post.comments %>
+  <%= render partial: 'comments_and_questions' %>
 
-<% @post.questions.each do |question| %>
-  <div class="media">
-    <div class="media-body">
-      <h4 class="media-heading">
-        <h4><%= question.title %></h4>
-        <p><%= question.body %></p>
-        <% if question.resolved? %>
-          <p><i>This question has been answered.</i></p>
-        <% end %>
-      </h4>
-        <% if policy(question).edit?%>
-          <%= link_to "Edit Question", edit_topic_post_question_path(@topic, @post, question), class: 'btn btn-success' %>
-          <%= link_to "Delete Question", [@topic, @post, question], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
-        <% end %> 
-    </div>
-  </div> 
-<% end %>
+
   
 </br>
 <% if policy(@post).edit? && !@post.summary %>
