@@ -10,14 +10,6 @@
     </ul>
   </div>
   <div class="col-md-8">
-    <%= form_for [@topic, @post, @user, @comment] do |f| %>
-      <div class="form-group">
-        <%= f.label "Make a comment" %>
-        <%= f.text_field :body, rows: 8, class: 'form-control', placeholder: "type your comment" %>
-      </div>
-      <div class="form-group">
-        <%= f.submit "Save", class: 'btn btn-success' %>
-      </div>
-    <% end %>
+    <%= render partial: 'form', locals: { topic: @topic, post: @post, comment: @comment} %>
   </div>    
 </div>

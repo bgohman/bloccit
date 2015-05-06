@@ -1,5 +1,6 @@
-<h1><%= @post.markdown_title %></h1>
 
+<%= link_to "Back to the topic page", topic_path(@topic) %>
+<h1><%= @post.markdown_title %></h1>
 <div class= "row">
   <div class= "col-md-8">
     <small>
@@ -8,20 +9,9 @@
       <%= @post.user.name %>
     </small>
     <p><%= @post.markdown_body %></p></br>
-    <%= image_tag(@post.image.small.url) if @post.image? %></br></br>
+    <%= image_tag(@post.image.small.url) if @post.image? %></br>
   </div>
 </div>
-
-<% if policy(@post).edit? && !@post.summary %>
-  <%= link_to "Summarize Post", new_topic_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
-<% end %>
-
-<% if policy(@post).edit? %>
-  <%= link_to "Edit Post", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
-  <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
-<% end %>
-
-<%= link_to "Back to the topic page", topic_path(@topic) %>
 
   <div class="media">
     <div class="media-body">
@@ -34,16 +24,9 @@
           <% end %> 
         <% end %> 
     </div>
-  </div> <br>
+  </div> 
 
-  <% if policy(Question.new).create? %>  
-  <%= link_to "Ask a Question", new_topic_post_question_path(@topic, @post), class: 'btn btn-success' %>
-<% end %>
-
-<% if policy(Comment.new).create? %>
-  <%= link_to "Make a Comment", new_topic_post_comment_path(@topic, @post), class: 'btn btn-success' %>
-<% end %>
-
+  <%= render partial: 'comments/comment', collection: @post.comments %>
 
 <% @post.questions.each do |question| %>
   <div class="media">
@@ -62,17 +45,24 @@
     </div>
   </div> 
 <% end %>
-
-<% @post.comments.each do |comment| %>
-  <div class="media">
-    <div class="media-body">
-      <h4 class="media-heading"></h4>
-        <p><%= comment.body %></p>
-        <% if policy(comment).edit? %>
-        <%= link_to "Edit Comment", edit_topic_post_comment_path(@topic, @post, comment), class: 'btn btn-success' %>
-        <%= link_to "Delete Comment", [@topic, @post, comment], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %> 
-        <% end %> 
-    </div>
-  </div>
-<% end %>
   
+</br>
+<% if policy(@post).edit? && !@post.summary %>
+  <%= link_to "Summarize Post", new_topic_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
+<% end %>
+
+<% if policy(@post).edit? %>
+  <%= link_to "Edit Post", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
+  <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
+<% end %>
+</br></br>
+
+  <% if policy(Question.new).create? %>  
+  <%= link_to "Ask a Question", new_topic_post_question_path(@topic, @post), class: 'btn btn-success' %>
+<% end %>
+
+<% if policy(Comment.new).create? %>
+  <%= link_to "Make a Comment", new_topic_post_comment_path(@topic, @post), class: 'btn btn-success' %>
+<% end %>
+
+

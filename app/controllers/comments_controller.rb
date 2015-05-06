@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       flash[:notice] = "comment was saved."
-      redirect_to @topic
+      redirect_to [@topic, @post]
     else
       flash[:error] = "There was an error saving the comment.  Please try again."
       render :new
