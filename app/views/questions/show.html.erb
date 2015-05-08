@@ -1,5 +1,5 @@
 <p><%= @question.body %></p>
 
-<%= link_to "Edit", edit_question_path(@question), class: 'btn btn-success' %>
+<%= link_to "Edit", edit_post_question_path(@post, @question), class: 'btn btn-success' %>
 <br><br>
 <%= link_to "Delete", @question, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>

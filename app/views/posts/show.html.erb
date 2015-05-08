@@ -32,7 +32,7 @@
   
 </br>
 <% if policy(@post).edit? && !@post.summary %>
-  <%= link_to "Summarize Post", new_topic_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
+  <%= link_to "Summarize Post", new_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
 <% end %>
 
 <% if policy(@post).edit? %>
@@ -44,11 +44,11 @@
 </br></br>
 
   <% if policy(Question.new).create? %>  
-  <%= link_to "Ask a Question", new_topic_post_question_path(@topic, @post), class: 'btn btn-success' %>
+  <%= link_to "Ask a Question", new_post_question_path(@post), class: 'btn btn-success' %>
 <% end %>
 
 <% if policy(Comment.new).create? %>
-  <%= link_to "Make a Comment", new_topic_post_comment_path(@topic, @post), class: 'btn btn-success' %>
+  <%= link_to "Make a Comment", new_post_comment_path(@post), class: 'btn btn-success' %>
 <% end %>
 
 

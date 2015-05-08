@@ -1,14 +1,14 @@
 class QuestionsController < ApplicationController
   def new
-    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])
+    @topic = @post.topic
     @question = Question.new
       authorize @question
   end
 
   def create
-    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])
+    @topic = @post.topic
     @question = @post.questions.new(params.require(:question).permit(:title, :body, :user_id, :resolved))
     @question.user = current_user
     authorize @question
@@ -23,21 +23,21 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])    
+    @post = Post.find(params[:post_id]) 
+    @topic = @post.topic   
     @question = Question.find(params[:id])
   end
 
   def edit
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])    
+    @post = Post.find(params[:post_id])  
+    @topic = @post.topic  
     @question = Question.find(params[:id])
     authorize @question
   end
 
   def update
-    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id]) 
+    @topic = @post.topic
     @question = Question.find(params[:id])
     authorize @question
     if @question.update_attributes(params.require(:question).permit(:title, :body, :resolved))
@@ -50,8 +50,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])     
+    @post = Post.find(params[:post_id])  
+    @topic = @post.topic   
     @question = Question.find(params[:id])
     authorize @question
     if @question.destroy

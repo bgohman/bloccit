@@ -1,14 +1,14 @@
 class CommentsController < ApplicationController
   def new
-    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])
+    @topic = @post.topic
     @comment = Comment.new
     authorize @comment
   end
 
   def create
-    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])
+    @topic = @post.topic
     @comment = @post.comments.new(params.require(:comment).permit(:title, :body, :resolved))
     @comment.user = current_user
     authorize @comment
@@ -23,21 +23,21 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])    
+    @post = Post.find(params[:post_id])
+    @topic = @post.topic    
     @comment = Comment.find(params[:id])
   end
 
   def edit
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])    
+    @post = Post.find(params[:post_id]) 
+    @topic = @post.topic   
     @comment = Comment.find(params[:id])
     authorize @comment
   end
 
   def update
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id]) 
+    @post = Post.find(params[:post_id])
+    @topic = @post.topic 
     @comment = Comment.find(params[:id])
     authorize @comment
     if @comment.update_attributes(params.require(:comment).permit(:body))
@@ -50,8 +50,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])     
+    @post = Post.find(params[:post_id])
+    @topic = @post.topic     
     @comment = Comment.find(params[:id])
     authorize @comment
     @comment.destroy
