@@ -60,6 +60,8 @@ group :development, :test do
   gem 'annotate'
   gem 'quiet_assets'
 
+  # testing framework
+  gem 'rspec-rails', '~> 3.0'
 end  
 
   # Seed Data
