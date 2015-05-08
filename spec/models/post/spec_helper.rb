@@ -25,5 +25,17 @@ describe Post do
       it "returns the sum of all down and up votes" do
         expect( @post.points ).to eq(1)
       end
+    end
+  end
+end
+
+describe Vote do
+
+  describe "validations" do
+    describe "value validations" do
+      it "only allows -1 or 1 as values" do
+        expect( @vote.value ).to eq(1) || expect( @vote.value ).to eq(-1)
+      end
+    end
   end
 end
