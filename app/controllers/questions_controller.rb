@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
     @post = Post.find(params[:post_id])
     @question = @post.questions.new(params.require(:question).permit(:title, :body, :user_id, :resolved))
     @question.user = current_user
-      authorize @question
+    authorize @question
 
     if @question.save
       flash[:notice] = "Question was saved."
@@ -32,14 +32,14 @@ class QuestionsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])    
     @question = Question.find(params[:id])
-      authorize @question
+    authorize @question
   end
 
   def update
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id]) 
     @question = Question.find(params[:id])
-      authorize @question
+    authorize @question
     if @question.update_attributes(params.require(:question).permit(:title, :body, :resolved))
       flash[:notice] = "Question was updated."
       redirect_to [@topic, @post]
@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])     
     @question = Question.find(params[:id])
-      authorize @question
+    authorize @question
     if @question.destroy
       flash[:notice] = "Question was deleted."
       redirect_to [@topic, @post]

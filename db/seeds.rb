@@ -36,14 +36,22 @@ users = User.all
  end
  topics = Topic.all
  
- # Create Posts
- 50.times do
-   Post.create!(
-     user:   users.sample,
-     topic:  topics.sample,
-     title:  Faker::Lorem.sentence,
-     body:   Faker::Lorem.paragraph
-   )
+ # Create Posts and Ads
+ 10.times do
+    5.times do
+      Post.create!(
+        user:   users.sample,
+        topic:  topics.sample,
+        title:  Faker::Lorem.sentence,
+        body:   Faker::Lorem.paragraph
+      )
+    end
+    Advertisement.create!(
+      topic: topics.sample,
+      title: Faker::Lorem.sentence,
+      copy:  Faker::Lorem.paragraph,
+      price: rand(100)
+    )
  end
  posts = Post.all
  
@@ -56,20 +64,13 @@ users = User.all
    )
  end
 
-  # Create Ads
- 10.times do
-   Advertisement.create!(
-     title: Faker::Lorem.sentence,
-     copy: Faker::Lorem.paragraph,
-     price: rand(100)
-   )
- end
+
 
 # Create Questions
  10.times do
    Question.create!(
      user: users.sample,
-     title: Faker::Lorem.sentence,
+     post: posts.sample,
      body: Faker::Lorem.paragraph,
      resolved: false
    )

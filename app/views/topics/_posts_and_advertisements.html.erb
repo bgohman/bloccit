@@ -1,0 +1,30 @@
+<% @posts_and_advertisements.each do |post| %>
+  <% if post.respond_to?(:image?) %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= image_tag(post.image.tiny.url) if post.image? %>
+          <%= link_to (post.markdown_title), [@topic, post] %>
+        </h4>
+        <small>
+          <%= image_tag(post.user.avatar.tiny.url) if post.user.avatar? %>
+          submitted <%= time_ago_in_words(post.created_at) %> ago by 
+          <%= post.user.name %><br>
+          <%= post.comments.count %> Comments
+          </small>
+      </div>
+    </div>
+  <% else %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= post.title %><br>
+          <small>
+            <%= post.copy %>
+          </small>  
+        </h4>
+      </div>
+    </div>  
+  <% end %>  
+<% end %>
+<%= will_paginate @posts %>

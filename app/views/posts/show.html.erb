@@ -37,7 +37,9 @@
 
 <% if policy(@post).edit? %>
   <%= link_to "Edit Post", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
-  <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>    
+<% end %>
+<% if policy(@post).destroy? %>
+  <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
 <% end %>
 </br></br>
 

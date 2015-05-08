@@ -53,10 +53,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     authorize @post
     if @post.destroy
-      flash[:notice] = "Post was deleted."
-      redirect_to topics_path
+      flash[:notice] = "\"#{@post.title}\" was deleted successfully."
+      redirect_to @topic
     else
-      flash[:error] = "There was an error deleting the question.  Please try again."
+      flash[:error] = "There was an error deleting the post.  Please try again."
       redirect_to [@topic, @post]
     end
   end
