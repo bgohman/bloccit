@@ -5,12 +5,7 @@ class Vote < ActiveRecord::Base
 
   after_save :update_post
 
-  def update_rank
-    age_in_days = (created_at - Time.new(1970,1,1)) / (60*60*24)
-    new_rank = points + age_in_days
 
-    update_attribute(:rank, new_rank)
-  end
 
   private
 
