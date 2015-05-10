@@ -3,10 +3,11 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  has_many :posts
-  has_many :questions
-  has_many :comments
-  has_many :summaries
+  has_many :posts, dependent: :destroy
+  has_many :questions, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :summaries, dependent: :destroy
+  has_many :votes, dependent: :destroy
   mount_uploader :avatar, AvatarUploader
 
   def admin?

@@ -1,6 +1,7 @@
 <% @posts_and_advertisements.each do |post| %>
+  <div class="media">
+    <%= render partial: 'votes/voter', locals: { post: post } %>
   <% if post.respond_to?(:image?) %>
-    <div class="media">
       <div class="media-body">
         <h4 class="media-heading">
           <%= image_tag(post.image.tiny.url) if post.image? %>
@@ -13,9 +14,7 @@
           <%= post.comments.count %> Comments
           </small>
       </div>
-    </div>
   <% else %>
-    <div class="media">
       <div class="media-body">
         <h4 class="media-heading">
           <%= post.title %><br>

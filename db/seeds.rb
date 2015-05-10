@@ -39,19 +39,22 @@ users = User.all
  # Create Posts and Ads
  10.times do
     5.times do
-      Post.create!(
+      post = Post.create!(
         user:   users.sample,
         topic:  topics.sample,
         title:  Faker::Lorem.sentence,
         body:   Faker::Lorem.paragraph
       )
+      post.update_attributes!(created_at: rand(10.minutes .. 1.year).ago)
+      post.update_rank
     end
-    Advertisement.create!(
+    advertisement = Advertisement.create!(
       topic: topics.sample,
       title: Faker::Lorem.sentence,
       copy:  Faker::Lorem.paragraph,
       price: rand(100)
     )
+    advertisement.update_attributes!(created_at: rand(10.minutes .. 1.year).ago)
  end
  posts = Post.all
  

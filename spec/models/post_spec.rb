@@ -4,7 +4,7 @@ describe Post do
   describe "vote methods" do
 
     before do
-      @post = Post.create(title: 'post title', body: 'post body')
+      @post = Post.create(title: 'post title', body: 'Post bodies must be pretty long.')
       3.times { @post.votes.create(value: 1) }
       2.times { @post.votes.create(value: -1) }
     end
@@ -24,17 +24,6 @@ describe Post do
     describe '#points' do
       it "returns the sum of all down and up votes" do
         expect( @post.points ).to eq(1)
-      end
-    end
-  end
-end
-
-describe Vote do
-
-  describe "validations" do
-    describe "value validations" do
-      it "only allows -1 or 1 as values" do
-        expect( @vote.value ).to eq(1) || expect( @vote.value ).to eq(-1)
       end
     end
   end
