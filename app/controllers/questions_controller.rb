@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
     @post = Post.find(params[:post_id])
     @topic = @post.topic
     @question = Question.new
-      authorize @question
+    authorize @question
   end
 
   def create
