@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
 
   private
 
-  def send_faborite_emails
+  def send_favorite_emails
     post.favorites.each do |favorite|
       FavoriteMailer.new_comment(favorite.user, post, self).deliver_now
     end

@@ -1,6 +1,6 @@
 <% @comments_and_questions.each do |feedback| %>
   <% if feedback.respond_to?(:resolved?) %>
-    <%= content_tag :div, class: 'media', id: "question-#{question.id}" do %> 
+    <%= content_tag :div, class: 'media', id: "question-#{feedback.id}" do %> 
       <div class="media-body">
         <h4 class="media-heading"></h4>
           <p><%= feedback.body %></p>
@@ -20,7 +20,7 @@
     <% end %>
 
   <% else %>
-    <%= content_tag :div, class: 'media', id: "comment-#{comment.id}" do %> 
+    <%= content_tag :div, class: 'media', id: "comment-#{feedback.id}" do %> 
       <div class="media-body">
         <h4 class="media-heading"></h4>
           <p><%= feedback.body %></p>
