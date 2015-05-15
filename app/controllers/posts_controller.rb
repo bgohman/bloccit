@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    @topic = Topic.find(params[:topic_id])
-    @summary = @post.summary
     authorize @post
+    @topic = Topic.find(params[:topic_id])
+    authorize @topic
+    @summary = @post.summary
     @questions = @post.questions
     @comments = @post.comments
     @comments_and_questions = (@questions + @comments).sort_by &:created_at
