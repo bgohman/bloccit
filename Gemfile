@@ -62,6 +62,9 @@ group :development, :test do
 
   # testing framework
   gem 'rspec-rails', '~> 3.0'
+
+  #acceptance testing framework
+  gem 'capybara'
 end  
 
   # Seed Data
