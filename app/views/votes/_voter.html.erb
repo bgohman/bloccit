@@ -4,7 +4,7 @@
       <div>
         <%= link_to " ", 
           post_up_vote_path(post), 
-          class: "glyphicon glyphicon-chevron-up #{(current_user.voted(post) && current_user.voted(post).up_vote?) ? 'voted' : '' }", 
+          class: up_vote_link_classes(post), 
           method: :post %>
       </div>
       <div>
@@ -12,7 +12,7 @@
       </div>
       <div>
         <%= link_to " ", post_down_vote_path(post), 
-        class: "glyphicon glyphicon-chevron-down #{(current_user.voted(post) && current_user.voted(post).down_vote?) ? 'voted' : '' }",
+        class: down_vote_link_classes(post),
         method: :post %>
       </div>
     </div>
