@@ -13,8 +13,8 @@
               <p><i>This question has been answered.</i></p>
             <%end %>
             <% if policy(feedback).edit? %>
-            <%= link_to "Edit Question", edit_post_question_path(@post, feedback), class: 'btn btn-success' %>
-            <%= link_to "Delete Question", [@post, feedback], method: :delete, data: { confirm: "Are you sure?" },  class: 'btn btn-danger' %> 
+            <%= link_to "Edit Question", edit_post_question_path(feedback.post, feedback), class: 'btn btn-success' %>
+            <%= link_to "Delete Question", [feedback.post, feedback], method: :delete, data: { confirm: "Are you sure?" },  class: 'btn btn-danger' %> 
             <% end %>        
       </div>
     <% end %>
@@ -30,10 +30,10 @@
             <%= feedback.user.name %>
           </small>
             <% if policy(feedback).edit? %>
-              <%= link_to "Edit Comment", edit_post_comment_path(@post, feedback), class: 'btn btn-success' %>
+              <%= link_to "Edit Comment", edit_post_comment_path(feedback.post, feedback), class: 'btn btn-success' %>
             <% end %>
             <% if policy(feedback).destroy? %>  
-              <%= link_to "Delete Comment", [@post, feedback], method: :delete, data: { confirm: "Are you sure?" },  class: 'btn btn-danger' %>
+              <%= link_to "Delete Comment", [feedback.post, feedback], method: :delete, data: { confirm: "Are you sure?" },  class: 'btn btn-danger' %>
             <% end %>  
       </div>
     <% end %>

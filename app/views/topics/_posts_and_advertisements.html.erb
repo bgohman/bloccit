@@ -5,14 +5,14 @@
       <div class="media-body">
         <h4 class="media-heading">
           <%= image_tag(post.image.tiny.url) if post.image? %>
-          <%= link_to (post.markdown_title), [@topic, post] %>
+          <%= post.title %>
         </h4>
         <small>
           <%= image_tag(post.user.avatar.tiny.url) if post.user.avatar? %>
           submitted <%= time_ago_in_words(post.created_at) %> ago by 
           <%= post.user.name %><br>
           <%= post.comments.count %> Comments
-          </small>
+        </small>
       </div>
   <% else %>
       <div class="media-body">
@@ -22,8 +22,8 @@
             <%= post.copy %>
           </small>  
         </h4>
-      </div>
-    </div>  
-  <% end %>  
+      </div> 
+  <% end %>
+  </div>   
 <% end %>
 <%= will_paginate @posts %>

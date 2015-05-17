@@ -11,7 +11,8 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
-    @advertisements = @topic.advertisements
+    random_ids = Advertisement.all.sort_by { rand }.slice(0, 3)
+    @advertisements = Advertisement.where(:id => random_ids)
     @posts = @topic.posts.paginate(page: params[:page], per_page: 10)
     @posts_and_advertisements = (@posts + @advertisements).sort_by(&:created_at)
     authorize @topic
