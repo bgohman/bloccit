@@ -25,8 +25,6 @@ describe "Visiting profiles" do
 
   before do
     @user = authenticated_user
-    @user.confirmed_at = Time.now
-    @user.save
     login_as(@user, :scope => :user)
     @post = associated_post(user: @user)
     @comment = Comment.new(user: @user, post: @post, body: "A Comment")
