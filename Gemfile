@@ -91,3 +91,7 @@ end
 
   #pagination
   gem  'will_paginate', '~> 3.0.5'
+
+  #monitering performance
+  gem 'newrelic_rpm'
+  
