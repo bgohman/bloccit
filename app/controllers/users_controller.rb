@@ -22,6 +22,10 @@ class UsersController < ApplicationController
     @posts_and_advertisements = (@posts + @advertisements).sort_by(&:created_at)
   end
 
+  def index
+    @users = User.top_rated.paginate(page: params[:page], per_page: 10)
+  end
+
   private
 
   def user_params

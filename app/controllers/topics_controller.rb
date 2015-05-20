@@ -13,9 +13,9 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     random_ids = Advertisement.all.sort_by { rand }.slice(0, 3)
     @advertisements = Advertisement.where(:id => random_ids)
-    @posts = @topic.posts.paginate(page: params[:page], per_page: 10)
-    @posts_and_advertisements = (@posts + @advertisements).sort_by(&:created_at)
     authorize @topic
+    @posts = @topic.posts.includes(:user).includes(:comments).paginate(page: params[:page], per_page: 10)
+    @posts_and_advertisements = (@posts + @advertisements).sort_by(&:created_at)
   end
 
   def edit

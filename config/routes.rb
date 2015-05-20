@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :users, only: [:update, :show]
+  resources :users, only: [:update, :show, :index]
 
   resources :advertisements
   
   resources :topics do
-    resources :posts, except: [:index]
+    resources :posts, except: [:index], controller: 'topics/posts'
   end
 
-  resources :posts, only: [] do 
+  resources :posts, only: [:index] do 
     resources :questions
     resources :comments
     resources :summaries
