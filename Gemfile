@@ -95,3 +95,6 @@ end
   #monitering performance
   gem 'newrelic_rpm'
   
+  #webserver
+
+  gem 'puma'
