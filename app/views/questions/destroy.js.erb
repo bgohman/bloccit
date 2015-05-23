@@ -1,0 +1,5 @@
+<% if @question.destroyed? %>
+  $('#question-' +<%= @question.id %>).hide();
+<% else %>
+  $('question-' +<%= @question.id %>).prepend("<div class='alert alert-danger'><%= flash[:error] %></div>");
+<% end %>

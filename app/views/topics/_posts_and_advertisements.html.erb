@@ -1,11 +1,11 @@
-<% @posts_and_advertisements.each do |post| %>
+<% @posts_and_advertisements.each do |post, topic| %>
   <div class="media">
     <%= render partial: 'votes/voter', locals: { post: post } %>
   <% if post.respond_to?(:image?) %>
       <div class="media-body">
         <h4 class="media-heading">
           <%= image_tag(post.image.tiny.url) if post.image? %>
-          <%= post.title %>
+          <%= link_to post.title, topic_post_path(post.topic_id, post.id) %>
         </h4>
         <small>
           <%= image_tag(post.user.avatar.tiny.url) if post.user.avatar? %>
