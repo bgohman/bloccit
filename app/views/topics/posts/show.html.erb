@@ -1,5 +1,38 @@
 
-<%= link_to "Back to the topic page", topic_path(@topic) %>
+<br><%= link_to "Back to the topic page", topic_path(@topic) %><br><br>
+
+<div class= "row">
+  <div class= "col-md-8">
+    <% if policy(@post).edit? && !@post.summary %>
+      <%= link_to "Summarize Post", new_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
+    <% end %>
+
+    <% if policy(@post).edit? %>
+      <%= link_to "Edit Post", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
+    <% end %>
+    <% if policy(@post).destroy? %>
+      <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+    <% end %>
+
+      <% if policy(Question.new).create? %>  
+      <%= link_to "Ask a Question", new_post_question_path(@post), class: 'btn btn-success' %>
+    <% end %>
+
+    <% if policy(Comment.new).create? %>
+      <%= link_to "Make a Comment", new_post_comment_path(@post), class: 'btn btn-success' %>
+    <% end %>
+    <%= render partial: 'favorites/favorite', locals: { post: @post } %>
+      <div>
+        <h3><%=pluralize(@post.points, 'point') %></h3>
+        <small>
+          <%=pluralize(@post.up_votes, 'up vote') %>,
+          <%=pluralize(@post.down_votes, 'down vote') %>
+        </small>
+      </div>
+    
+  </div>
+</div>
+
 <div class= "row">
   <div class= "col-md-8">
     <%= render partial: 'votes/voter', locals: { post: @post } %>
@@ -9,8 +42,8 @@
       submitted <%= time_ago_in_words(@post.created_at) %> ago by
       <%= @post.user.name %>
     </small>
-    <p><%= @post.markdown_body %></p></br>
-    <%= image_tag(@post.image.small.url) if @post.image? %></br>
+    <p><%= @post.markdown_body %></p>
+    <%= image_tag(@post.image.small.url) if @post.image? %>
   </div>
 </div>
 
@@ -31,35 +64,7 @@
 
 
   
-</br>
-<% if policy(@post).edit? && !@post.summary %>
-  <%= link_to "Summarize Post", new_post_summary_path(@topic, @post, @summary), class: 'btn btn-success' %>
-<% end %>
 
-<% if policy(@post).edit? %>
-  <%= link_to "Edit Post", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
-<% end %>
-<% if policy(@post).destroy? %>
-  <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
-<% end %>
-</br></br>
-
-  <% if policy(Question.new).create? %>  
-  <%= link_to "Ask a Question", new_post_question_path(@post), class: 'btn btn-success' %>
-<% end %>
-
-<% if policy(Comment.new).create? %>
-  <%= link_to "Make a Comment", new_post_comment_path(@post), class: 'btn btn-success' %>
-<% end %>
-
-  <div>
-    <h3><%=pluralize(@post.points, 'point') %></h3>
-    <small>
-      <%=pluralize(@post.up_votes, 'up vote') %>,
-      <%=pluralize(@post.down_votes, 'down vote') %>
-    </small>
-  </div>
-  <%= render partial: 'favorites/favorite', locals: { post: @post } %>
 
 
 

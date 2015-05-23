@@ -8,14 +8,14 @@
             <%= image_tag(feedback.user.avatar.tiny.url) if feedback.user.avatar? %>
             submitted <%= time_ago_in_words(feedback.created_at) %> ago by
             <%= feedback.user.name %>
-          </small>
             <% if feedback.resolved? %>
               <p><i>This question has been answered.</i></p>
             <%end %>
             <% if policy(feedback).edit? %>
-            <%= link_to "Edit Question", edit_post_question_path(feedback.post, feedback), class: 'btn btn-success' %>
-            <%= link_to "Delete Question", [feedback.post, feedback], method: :delete, remote: true, data: { confirm: "Are you sure?" },  class: 'btn btn-danger' %> 
-            <% end %>        
+            <%= link_to " | edit", edit_post_question_path(feedback.post, feedback) %>
+            <%= link_to " | delete", [feedback.post, feedback], method: :delete, remote: true, data: { confirm: "Are you sure?" } %> 
+            <% end %>   
+          </small>     
       </div>
     <% end %>
 
@@ -28,13 +28,13 @@
             <%= image_tag(feedback.user.avatar.tiny.url) if feedback.user.avatar? %>
             submitted <%= time_ago_in_words(feedback.created_at) %> ago by
             <%= feedback.user.name %>
-          </small>
             <% if policy(feedback).edit? %>
-              <%= link_to "Edit Comment", edit_post_comment_path(feedback.post, feedback), class: 'btn btn-success' %>
+              <%= link_to " | edit", edit_post_comment_path(feedback.post, feedback) %>
             <% end %>
             <% if policy(feedback).destroy? %>  
-              <%= link_to "Delete Comment", [feedback.post, feedback], method: :delete, remote: true, data: { confirm: "Are you sure?" },  class: 'btn btn-danger' %>
-            <% end %>  
+              <%= link_to " | delete", [feedback.post, feedback], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+            <% end %> 
+          </small> 
       </div>
     <% end %>
 
