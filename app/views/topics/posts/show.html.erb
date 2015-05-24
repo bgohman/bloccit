@@ -14,13 +14,6 @@
       <%= link_to "Delete Post", [@topic, @post], method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
     <% end %>
 
-      <% if policy(Question.new).create? %>  
-      <%= link_to "Ask a Question", new_post_question_path(@post), class: 'btn btn-success' %>
-    <% end %>
-
-    <% if policy(Comment.new).create? %>
-      <%= link_to "Make a Comment", new_post_comment_path(@post), class: 'btn btn-success' %>
-    <% end %>
     <%= render partial: 'favorites/favorite', locals: { post: @post } %>
       <div>
         <h3><%=pluralize(@post.points, 'point') %></h3>
@@ -60,7 +53,20 @@
     </div>
   </div>
 
-  <%= render partial: 'posts/comments_and_questions' %>
+  <h2>Comments and Questions</h2>
+  <div class='js-comments'>
+    <%= render partial: 'comments_and_questions' %>
+  </div>
+    <% if policy(Comment.new).create? %> 
+      <div class="new-comment">
+        <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment} %>
+      </div>  
+    <% end %>
+    <% if policy(Question.new).create? %> 
+      <div class="new-question">
+        <%= render partial: 'questions/form', locals: { post: @post, question: @question} %>
+      </div>  
+    <% end %>
 
 
   
