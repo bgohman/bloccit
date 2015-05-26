@@ -1,0 +1,18 @@
+
+<%= content_tag :div, class: 'media', id: "comment-#{comment.id}" do %> 
+  <div class="media-body">
+    <h4 class="media-heading"></h4>
+      <p><%= comment.body %></p>
+      <small>
+        <%= image_tag(comment.user.avatar.tiny.url) if comment.user.avatar? %>
+        submitted <%= time_ago_in_words(comment.created_at) %> ago by
+        <%= comment.user.name %>
+        <% if policy(comment).edit? %>
+          <%= link_to " | edit", edit_post_comment_path(comment.post, comment) %>
+        <% end %>
+        <% if policy(comment).destroy? %>  
+          <%= link_to " | delete", [comment.post, comment], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+        <% end %> 
+      </small> 
+  </div>
+<% end %>

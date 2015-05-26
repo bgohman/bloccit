@@ -8,17 +8,23 @@ class QuestionsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @topic = @post.topic
-    @question = @post.questions.new(params.require(:question).permit(:title, :body, :user_id, :resolved))
-    @question.user = current_user
+    @question = current_user.questions.build( question_params )
+    @question.post = @post
+    @new_question = Question.new
     authorize @question
+    #if @question.save
+    #  flash[:notice] = "Question was saved."
+    #else
+    #  flash[:error] = "There was an error saving the question.  Please try again."
+    #end
+    @question.save
+    @questions = @post.questions
+    @comments = @post.comments
+    @comments_and_questions = (@questions + @comments).sort_by &:created_at
 
-    if @question.save
-      flash[:notice] = "Question was saved."
-      redirect_to [@topic, @post]
-    else
-      flash[:error] = "There was an error saving the question.  Please try again."
-      render :new
+    respond_to do |format|
+      format.html
+      format.js
     end    
   end
 
@@ -63,6 +69,12 @@ class QuestionsController < ApplicationController
       format.html
       format.js
     end  
+  end
+
+  private
+
+  def question_params
+    params.require(:question).permit(:body)
   end
 
 end

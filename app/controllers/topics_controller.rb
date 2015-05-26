@@ -15,7 +15,7 @@ class TopicsController < ApplicationController
     @advertisements = Advertisement.where(:id => random_ids)
     authorize @topic
     @posts = @topic.posts.includes(:user).includes(:comments).paginate(page: params[:page], per_page: 10)
-    @posts_and_advertisements = (@posts + @advertisements).sort_by(&:created_at)
+    @posts_and_advertisements = (@posts + @advertisements).sort_by(&:created_at).reverse
   end
 
   def edit

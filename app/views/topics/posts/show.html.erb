@@ -55,7 +55,7 @@
 
   <h2>Comments and Questions</h2>
   <div class='js-comments'>
-    <%= render partial: 'comments_and_questions' %>
+    <%= render partial: 'comments_and_questions', collection: @comments_and_questions, as: :feedback %>
   </div>
     <% if policy(Comment.new).create? %> 
       <div class="new-comment">
@@ -64,7 +64,7 @@
     <% end %>
     <% if policy(Question.new).create? %> 
       <div class="new-question">
-        <%= render partial: 'questions/form', locals: { post: @post, question: @question} %>
+        <%= render partial: 'questions/form', locals: { topic: @topic, post: @post, question: @question} %>
       </div>  
     <% end %>
 

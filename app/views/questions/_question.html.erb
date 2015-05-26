@@ -1,0 +1,19 @@
+
+    <%= content_tag :div, class: 'media', id: "question-#{question.id}" do %> 
+      <div class="media-body">
+        <h4 class="media-heading"></h4>
+          <p><%= question.body %></p>
+          <small>
+            <%= image_tag(question.user.avatar.tiny.url) if question.user.avatar? %>
+            submitted <%= time_ago_in_words(question.created_at) %> ago by
+            <%= question.user.name %>
+            <% if question.resolved? %>
+              <p><i>This question has been answered.</i></p>
+            <%end %>
+            <% if policy(question).edit? %>
+            <%= link_to " | edit", edit_post_question_path(question.post, question) %>
+            <%= link_to " | delete", [question.post, question], method: :delete, remote: true, data: { confirm: "Are you sure?" } %> 
+            <% end %>   
+          </small>     
+      </div>
+    <% end %>
